@@ -1,30 +1,30 @@
 #!/bin/bash
-input_file=data/inpuut.txt
-output_file=data/output.txt
-
-chmod +x ./script.sh
-./script.sh > /dev/null
+input_file=input.txt
+output_file=output.txt
+word="aboba"
+chmod +x ./homework.sh
+./homework.sh -i $input_file -o $output_file -d $word > /dev/null
 
 echo "Тест аргументов"
 
-if [[ $? -eq 1 ]] # "$?" - код ошибки с которым выполнилась программа
+if [[ -f $input_file ]] && [[ -f $output_file ]] && [[ -n $word ]]
 then
-    echo "Тест №1 пройден"
+    echo "Тест №1 пройден!"
 else
-    echo "Тест №1 провален"
-    echo "Нет аргументов"
+    echo "Тест №1 провален !"
+    echo "Input: -i $input_file -o $output_file -d $word"
     exit 1
-fi 
+fi
 
-./script input.txt output.txt aboba > /dev/null
 
-b=cat $output_file
-if [[ $b -eq 5 ]]
+b=`cat $output_file`
+expected="Аргументы скрипта: 5"
+if [[ $b == $expected ]]
 then 
     echo "Тест №2 пройден"
 else
     echo "Тест №2 провален"
-    echo "Ожидалось: 5"
+    echo "Ожидалось: $expected"
     echo "Вывод: $b"
     exit 1
 fi
